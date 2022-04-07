@@ -4,12 +4,6 @@ const Home = () => {
 	const [task, setTask] = useState("");
 	const [list, setList] = useState([]);
 
-	let toDo = list.length;
-	if (toDo === 0) {
-		toDo = "Ninguna tarea";
-	} else {
-		toDo = list.length + " Tareas añadidas";
-	}
 	const addTask = () => {
 		setList([...list, task]);
 		setTask("");
@@ -38,11 +32,24 @@ const Home = () => {
 					<table class="table table-success table-striped">
 						<tbody>
 							{list.map((tasks, index) => (
-								<tr key={index}>{tasks}</tr>
+								<tr key={index}>
+									{tasks}
+									<button
+										onClick={() => {
+											setList(
+												list.filter(
+													(a, b) => b != index
+												)
+											);
+										}}
+										className="button">
+										x
+									</button>
+								</tr>
 							))}
 						</tbody>
 					</table>
-					{list.length}
+					{list.length + " Tareas añadidas"}
 				</div>
 			</div>
 		</div>
