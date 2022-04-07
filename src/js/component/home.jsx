@@ -42,7 +42,7 @@ const Home = () => {
 												)
 											);
 										}}
-										className="button">
+										className="button border-0 rounded">
 										x
 									</button>
 								</tr>
