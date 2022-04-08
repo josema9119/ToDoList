@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react/cjs/react.production.min";
 
 const Home = () => {
 	const [task, setTask] = useState("");
@@ -42,7 +43,7 @@ const Home = () => {
 												)
 											);
 										}}
-										className="button border-0 rounded">
+										className="button border-0 rounded pt-1 pb-1">
 										x
 									</button>
 								</tr>
