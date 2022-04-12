@@ -10,49 +10,42 @@ const Home = () => {
 		setTask("");
 	};
 	return (
-		<div className="back">
-			<div className="container">
-				<h1 className="row mx-auto">Lista de tareas</h1>
-				<div className="d-table-row mx-auto">
-					<div className="input-group mb-3">
-						<button
-							className="input-group-text"
-							id="basic-addon1"
-							onClick={addTask}>
-							Añadir Tarea
-						</button>
-						<input
-							onChange={(e) => setTask(e.target.value)}
-							value={task}
-							type="text"
-							className="form-control"
-							placeholder="Tarea"
-							aria-label="Username"
-							aria-describedby="basic-addon1"></input>
-					</div>
-					<table class="table table-success table-striped">
-						<tbody>
-							{list.map((tasks, index) => (
-								<tr key={index}>
-									{tasks}
-									<button
-										onClick={() => {
-											setList(
-												list.filter(
-													(a, b) => b != index
-												)
-											);
-										}}
-										className="button border-0 rounded pt-1 pb-1">
-										x
-									</button>
-								</tr>
-							))}
-						</tbody>
-					</table>
-					{list.length + " Tareas añadidas"}
-				</div>
-			</div>
+		<div className="container bg-light d-block justify-content-center">
+			<h1 className=" mx-auto text-center">Lista de tareas</h1>
+
+			<input
+				onChange={(e) => setTask(e.target.value)}
+				value={task}
+				type="text"
+				className="col-4 border-0 d-flex self-align-center"
+				placeholder="Tarea"
+				onKeyDown={(e) => {
+					if (e.key === "Enter") {
+						task !== "" && task !== " "
+							? setList([...list, task])
+							: null;
+						setInput("");
+					}
+				}}></input>
+			<table class="table table-success table-striped">
+				<tbody>
+					{list.map((tasks, index) => (
+						<tr
+							key={index}
+							className="d-flex align-items-start flex-column bd-highlight mb-3">
+							{tasks}
+							<button
+								onClick={() => {
+									setList(list.filter((a, b) => b != index));
+								}}
+								className="button border-0 rounded mb-auto p-2 bd-highlight">
+								x
+							</button>
+						</tr>
+					))}
+				</tbody>
+			</table>
+			{list.length + " Tareas añadidas"}
 		</div>
 	);
 };
