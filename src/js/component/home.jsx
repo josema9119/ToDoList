@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import List from "./list.js";
 import { useEffect } from "react/cjs/react.production.min";
 
 const Home = () => {
@@ -9,43 +10,41 @@ const Home = () => {
 		setList([...list, task]);
 		setTask("");
 	};
+	const deleteTask = (indexList) => {
+		setList(() => list.filter((value, index) => index !== indexList));
+	};
 	return (
-		<div className="container bg-light d-block justify-content-center">
-			<h1 className=" mx-auto text-center">Lista de tareas</h1>
-
+		<div className="container bg-light justify-content-center">
+			<h1 className=" mx-auto text-center">Todo´s List</h1>
 			<input
 				onChange={(e) => setTask(e.target.value)}
 				value={task}
 				type="text"
 				className="col-4 border-0 d-flex self-align-center"
-				placeholder="Tarea"
+				placeholder="Task"
 				onKeyDown={(e) => {
 					if (e.key === "Enter") {
 						task !== "" && task !== " "
 							? setList([...list, task])
 							: null;
-						setInput("");
+						setTask("");
 					}
 				}}></input>
-			<table class="table table-success table-striped">
-				<tbody>
-					{list.map((tasks, index) => (
-						<tr
-							key={index}
-							className="d-flex align-items-start flex-column bd-highlight mb-3">
-							{tasks}
-							<button
-								onClick={() => {
-									setList(list.filter((a, b) => b != index));
-								}}
-								className="button border-0 rounded mb-auto p-2 bd-highlight">
-								x
-							</button>
-						</tr>
-					))}
-				</tbody>
-			</table>
-			{list.length + " Tareas añadidas"}
+			<ul className="list-group">
+				{list.map((task, index) => (
+					<List
+						key={index}
+						inputTask={task}
+						quit={() => deleteTask(index)}
+					/>
+				))}
+
+				<span className="col-4 border-0 shadow p-3 bg-white">
+					{list.length === 0
+						? "No task, add a task"
+						: list.length + " item left"}
+				</span>
+			</ul>
 		</div>
 	);
 };
